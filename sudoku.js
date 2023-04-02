@@ -14,6 +14,7 @@ var board = [
     "67-83----",
     "81--45---"
 ]
+
 var solution = [
     "387491625",
     "241568379",
@@ -31,20 +32,20 @@ window.onload = function() {
 }
 
 function setGame() {
-    //Digits 1-9
-    for (let i = 1; i<=9; i++) {
-        //<div id="1" class="number"></div>
+    // Digits 1-9
+    for (let i = 1; i <= 9; i++) {
+        //<div id="1" class="number">1</div>
         let number = document.createElement("div");
-        number.id = i;
+        number.id = i
         number.innerText = i;
         number.addEventListener("click", selectNumber);
         number.classList.add("number");
         document.getElementById("digits").appendChild(number);
     }
 
-    //Board 9x9
-    for (let r= 0; r<9; r++) {
-        for (let c=0; c<9; c++) {
+    // Board 9x9
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
             let tile = document.createElement("div");
             tile.id = r.toString() + "-" + c.toString();
             if (board[r][c] != "-") {
@@ -57,14 +58,14 @@ function setGame() {
             if (c == 2 || c == 5) {
                 tile.classList.add("vertical-line");
             }
-            tile.addEventListener("click", selecTile);
+            tile.addEventListener("click", selectTile);
             tile.classList.add("tile");
             document.getElementById("board").append(tile);
         }
     }
 }
 
-function selectNumber() {
+function selectNumber(){
     if (numSelected != null) {
         numSelected.classList.remove("number-selected");
     }
@@ -72,19 +73,21 @@ function selectNumber() {
     numSelected.classList.add("number-selected");
 }
 
-function selecTile() {
+function selectTile() {
     if (numSelected) {
-        if (this.innerText != " ") {
+        if (this.innerText != "") {
             return;
         }
-        // "0-0"
-        let coords = this.id.split("-"); //["0", "1"]
+
+        // "0-0" "0-1" .. "3-1"
+        let coords = this.id.split("-"); //["0", "0"]
         let r = parseInt(coords[0]);
         let c = parseInt(coords[1]);
 
         if (solution[r][c] == numSelected.id) {
             this.innerText = numSelected.id;
-        } else {
+        }
+        else {
             errors += 1;
             document.getElementById("errors").innerText = errors;
         }
